@@ -979,3 +979,37 @@ body.about-page {
     color: #a37c7c;
     font-family: 'Montserrat', sans-serif;
 }
+
+
+/* --- MOBİL UYUMLULUK DÜZELTMELERİ --- */
+@media screen and (max-width: 768px) {
+    /* Üst menüyü mobilde alt alta ve düzenli hale getiriyoruz */
+    .artist-navbar {
+        flex-direction: column;
+        padding: 15px 10px;
+        gap: 10px;
+        position: relative;
+    }
+
+    .nav-side {
+        width: 100%;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .nav-center-logo h1 {
+        font-size: 2rem !important;
+    }
+
+    /* Mobilde ekranı daraltan yan yazıları ve ikonları gizliyoruz veya aşağı kaydırıyoruz */
+    .side-bar.side-left, 
+    .side-bar.side-right {
+        display: none;
+    }
+
+    /* Hero 3D model alanının mobilde taşmasını önlüyoruz */
+    .hero-section {
+        min-height: 80vh;
+        padding-top: 40px;
+    }
+}
