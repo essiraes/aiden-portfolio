@@ -11,7 +11,8 @@ UPLOAD_FOLDER = os.path.join('static', 'uploads')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp', 'glb'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+import os
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
