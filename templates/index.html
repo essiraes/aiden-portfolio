@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AİDEN | Portfolyo</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+</head>
+<body>
+
+    <div class="frame-border frame-top"></div>
+    <div class="frame-border frame-bottom"></div>
+    <div class="frame-border frame-left"></div>
+    <div class="frame-border frame-right"></div>
+
+    <nav class="artist-navbar">
+        <div class="nav-side left-links">
+            <a href="/">Home</a>
+            <a href="/about">About Me</a>
+        </div>
+        <div class="nav-center-logo">
+            <h1>AİDEN</h1>
+        </div>
+        <div class="nav-side right-links">
+            <a href="/projects">Projects</a>
+            <a href="/portfolio">Portfolio</a>
+        </div>
+    </nav>
+
+    <div class="side-bar side-left">
+        <div class="social-links">
+            <a href="#" target="_blank"><i class="fa-brands fa-artstation"></i></a>
+            <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="mailto:ornekmail@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+        <span class="side-text">SOCIALS & CONTACT</span>
+    </div>
+
+    <div class="side-bar side-right">
+        <span class="side-text">CHARACTER ARTIST & ANIMATOR</span>
+        <div class="side-line"></div>
+    </div>
+
+    <!-- 1. BÖLÜM: 3D HERO SAHNESİ -->
+    <section class="hero-section">
+        <div class="hero-3d-container">
+            <model-viewer 
+                src="{{ url_for('static', filename='karakter.glb') }}" 
+                alt="Aiden 3D Karakter Tasarımı" 
+                camera-controls 
+                auto-rotate 
+                disable-zoom
+                bounds="tight"
+                shadow-intensity="1.5"
+                shadow-softness="0.8"
+                exposure="1.2"
+                environment-image="neutral"
+                tone-mapping="commerce">
+            </model-viewer>
+        </div>
+        <div class="hero-text-overlay">
+            <p>Scroll down for latest work</p>
+            <i class="fa-solid fa-chevron-down scroll-arrow"></i>
+        </div>
+    </section>
+
+    <!-- 2. BÖLÜM: DİNAMİK DASHBOARD -->
+    <section class="dashboard-section">
+        <div class="dashboard-container">
+            
+            <!-- EN SON EKLENEN BÜYÜK PROJELER (Latest Projects) -->
+            <div class="section-title">
+                <h2>LATEST PROJECTS</h2>
+                <div class="title-line"></div>
+            </div>
+
+            <div class="latest-works-grid">
+                {% for mp in latest_projects %}
+                <!-- Büyük projelere tıklanınca major-project detay sayfasına gider -->
+                <div class="work-card" style="cursor: pointer;" onclick="window.location.href='/major-project/{{ mp.id }}'">
+                    <div class="work-img-holder">
+                        <img src="{{ url_for('static', filename='uploads/' + mp.image) }}" alt="{{ mp.title }}">
+                        <span class="work-category">Project</span>
+                    </div>
+                    <div class="work-info">
+                        <h3>{{ mp.title }}</h3>
+                        <p>{{ mp.description }}</p>
+                    </div>
+                </div>
+                {% else %}
+                <p style="text-align: center; color: #a37c7c; grid-column: span 3;">Henüz büyük proje eklenmedi.</p>
+                {% endfor %}
+            </div>
+
+            <!-- ALT DETAY KARTLARI (Yazılımlar, Beceriler ve Son Portfolyo Öğeleri) -->
+            <div class="dashboard-grid">
+                
+                <!-- SOL SÜTUN: RECENT SKETCHES (Portfolyo Öğeleri / Tekil Çalışmalar) -->
+                <div class="grid-card art-card">
+                    <h3>Recent Sketches</h3>
+                    <div class="art-thumbs">
+                        {% for item in latest_works %}
+                        <div class="thumb-item" style="cursor: pointer;" onclick="window.location.href='/project/{{ item.id }}'">
+                            <img src="{{ url_for('static', filename='uploads/' + item.image) }}" alt="Art">
+                            <span>@aiden</span>
+                        </div>
+                        {% else %}
+                        <p style="color: #666; font-size: 0.85rem;">Henüz eskiz eklenmedi.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- ORTA SÜTUN: Kullanılan Yazılımlar -->
+                <div class="grid-card info-card">
+                    <h3>Software Stack</h3>
+                    <ul class="skill-list">
+                        <li><i class="fa-solid fa-cube"></i> Blender 3D</li>
+                        <li><i class="fa-solid fa-paintbrush"></i> Substance Painter</li>
+                        <li><i class="fa-solid fa-wand-magic-sparkles"></i> ZBrush</li>
+                    </ul>
+                </div>
+
+                <!-- SAĞ SÜTUN: Uzmanlık Alanı -->
+                <div class="grid-card feature-card">
+                    <h3>Specialty</h3>
+                    <p>Stylized Character Sculpting, Rigging & Animation for Games.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 3. BÖLÜM: CONTACT / FOOTER -->
+    <footer class="footer-section">
+        <h2>GET IN TOUCH</h2>
+        <div class="footer-line"></div>
+        <div class="footer-socials">
+            <a href="mailto:ornekmail@gmail.com"><i class="fa-solid fa-envelope"></i> Email</a>
+            <a href="#" target="_blank"><i class="fa-brands fa-artstation"></i> ArtStation</a>
+            <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a>
+            <a href="#" target="_blank"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
+        </div>
+        <p>© 2026 Aiden. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

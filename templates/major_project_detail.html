@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>AİDEN | {{ major.title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="portfolio-page">
+    <div class="frame-border frame-top"></div><div class="frame-border frame-bottom"></div>
+    <div class="frame-border frame-left"></div><div class="frame-border frame-right"></div>
+
+    <nav class="artist-navbar">
+        <div class="nav-side left-links"><a href="/projects"><i class="fa-solid fa-arrow-left"></i> Projects'e Dön</a></div>
+        <div class="nav-center-logo"><h1>AİDEN</h1></div>
+        <div class="nav-side right-links"><a href="/">Home</a></div>
+    </nav>
+
+    <main class="gallery-container">
+        <div class="gallery-showcase">
+            <img src="{{ url_for('static', filename='uploads/' + major.image) }}" alt="{{ major.title }}">
+        </div>
+
+        <div class="gallery-info">
+            <span class="gallery-category">Major Project</span>
+            <h1 class="gallery-title">{{ major.title }}</h1>
+            <div class="gallery-line"></div>
+            <p class="gallery-desc">{{ major.description }}</p>
+            <p style="color: #a37c7c; font-size: 0.85rem; margin-top: 10px;">Yayınlanma Tarihi: {{ major.created_at.strftime('%d.%m.%Y') }}</p>
+        </div>
+
+        <!-- BU PROJEYE AİT İÇERİKLER / ASSETLER -->
+        {% if major.items %}
+        <div style="width: 100%; max-width: 1200px; margin: 50px auto; padding: 0 20px;">
+            <h2 style="font-family: 'Cinzel Decorative', serif; color: #eed9b3; margin-bottom: 25px; text-align: center;">PROJEYE AİT İÇERİK VE MODEL PARÇALARI</h2>
+            <div class="portfolio-grid">
+                {% for item in major.items %}
+                <div class="portfolio-card" style="cursor: pointer;" onclick="window.location.href='/project/{{ item.id }}'">
+                    <div class="card-img-holder">
+                        <img src="{{ url_for('static', filename='uploads/' + item.image) }}" alt="{{ item.title }}">
+                        <span class="badge-category">{{ item.category }}</span>
+                        <div class="card-overlay">
+                            <span class="overlay-cat">{{ item.category }}</span>
+                            <h3>{{ item.title }}</h3>
+                            <p>Parçayı İncele <i class="fa-solid fa-arrow-right"></i></p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,981 @@
+/* --- GENEL SAYFA AYARLARI --- */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: radial-gradient(circle at center, #6b1515 0%, #540f0f 50%, #2b0606 100%);
+    background-attachment: fixed;
+    color: #fdfbf7;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* --- ARTİSTİK ÜST MENÜ --- */
+.artist-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 50px;
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 100;
+}
+
+.nav-side {
+    display: flex;
+    gap: 35px;
+    flex: 1;
+}
+
+.right-links {
+    justify-content: flex-end;
+}
+
+/* Coraline Masalsı/Gotik Dokunuşlu Menü Yazıları */
+.nav-side a {
+    text-decoration: none;
+    color: #fdfbf7;
+    font-family: 'Cinzel Decorative', serif; /* Coraline Tarzı Font */
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.nav-side a:hover {
+    color: #eed9b3;
+    text-shadow: 0 0 8px rgba(238, 217, 179, 0.6); /* Hafif gizemli ışıltı */
+}
+
+/* Ortadaki Büyük AİDEN Logosu (Tam Coraline Havası) */
+.nav-center-logo h1 {
+    margin: 0;
+    font-family: 'Cinzel Decorative', serif; /* Coraline Tarzı Font */
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: 5px;
+    color: #fdfbf7;
+    text-align: center;
+    flex: 1;
+    text-shadow: 2px 4px 15px rgba(0, 0, 0, 0.8);
+}
+
+/* --- 3D MODEL SAHNESİ VE ALT YAZI --- */
+.hero-3d-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 0;
+    z-index: 10;
+}
+
+model-viewer {
+    width: 100%;
+    height: 85%;
+    outline: none;
+    background-color: transparent;
+}
+
+.hero-text-overlay {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    text-align: center;
+    color: #d4a3a3;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    pointer-events: none;
+    z-index: 20;
+}
+
+/* --- ÇERÇEVE ÇİZGİLERİ (BORDER FRAME) --- */
+.frame-border {
+    position: fixed;
+    background-color: rgba(238, 217, 179, 0.15); /* Saydam Şampanya Çizgiler */
+    z-index: 90;
+    pointer-events: none;
+}
+.frame-top { top: 15px; left: 15px; right: 15px; height: 1px; }
+.frame-bottom { bottom: 15px; left: 15px; right: 15px; height: 1px; }
+.frame-left { top: 15px; bottom: 15px; left: 15px; width: 1px; }
+.frame-right { top: 15px; bottom: 15px; right: 15px; width: 1px; }
+
+/* --- SAĞ VE SOL DİKEY BÖLÜMLER --- */
+.side-bar {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    z-index: 80;
+}
+
+.side-left {
+    left: 35px;
+}
+
+.side-right {
+    right: 35px;
+}
+
+/* Sosyal Medya İkon Tasarımları */
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.social-links a {
+    color: #fdfbf7;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #eed9b3;
+    transform: scale(1.2);
+    text-shadow: 0 0 10px rgba(238, 217, 179, 0.8);
+}
+
+/* Dikey Metinler */
+.side-text {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: #d4a3a3;
+    writing-mode: vertical-rl; /* Yazıyı dikey yapar */
+    text-transform: uppercase;
+}
+
+.side-right .side-text {
+    transform: rotate(180deg); /* Düzgün okunması için döndürdük */
+}
+
+/* Sağ taraftaki ince estetik çizgi */
+.side-line {
+    width: 1px;
+    height: 40px;
+    background-color: #d4a3a3;
+    opacity: 0.5;
+}
+
+/* Sayfa Kaydırma İznini Güncelleme */
+body {
+    overflow-y: auto !important;
+}
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.scroll-arrow {
+    margin-top: 10px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+/* --- DASHBOARD SECTION (REFERANS TARZI UI) --- */
+.dashboard-section {
+    padding: 80px 10%;
+    position: relative;
+    z-index: 20;
+}
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* ÜST DEV BANNER (Öne Çıkan Proje) */
+.featured-banner {
+    background: rgba(253, 251, 247, 0.95); /* Açık Krem / Şampanya Kart */
+    border-radius: 25px;
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #2b0606;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    min-height: 280px;
+}
+
+.banner-content {
+    max-width: 50%;
+}
+
+.badge {
+    background-color: #540f0f;
+    color: #fdfbf7;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.banner-content h2 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2.2rem;
+    margin: 15px 0 10px 0;
+}
+
+.banner-content p {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.banner-tags {
+    margin: 15px 0 20px 0;
+    display: flex;
+    gap: 10px;
+}
+
+.banner-tags span {
+    color: #8b1a1a;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.read-more-btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: #540f0f;
+    color: #fdfbf7;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.read-more-btn:hover {
+    background-color: #8b1a1a;
+    transform: translateY(-2px);
+}
+
+.banner-image-holder {
+    width: 350px;
+    height: 250px;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.banner-image-holder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* KARTLAR GRID YAPISI */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 25px;
+}
+
+.grid-card {
+    background: rgba(253, 251, 247, 0.9);
+    border-radius: 20px;
+    padding: 25px;
+    color: #2b0606;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.grid-card h3 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.1rem;
+    margin-top: 0;
+    color: #540f0f;
+    border-bottom: 1px solid rgba(84, 15, 15, 0.2);
+    padding-bottom: 10px;
+}
+
+/* Küçük Önizleme Kartları */
+.art-thumbs {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.thumb-item {
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.thumb-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumb-item span {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    font-size: 0.65rem;
+    color: #fff;
+    background: rgba(0,0,0,0.6);
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+
+.skill-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.skill-list li {
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #444;
+}
+
+.skill-list i {
+    color: #540f0f;
+    margin-right: 8px;
+}
+
+/* --- DASHBOARD & 3'LÜ LATEST WORKS KARTLARI --- */
+.dashboard-section {
+    padding: 60px 8%;
+    position: relative;
+    z-index: 20;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title h2 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2rem;
+    color: #fdfbf7;
+    letter-spacing: 3px;
+    margin: 0 0 10px 0;
+}
+
+.title-line {
+    width: 80px;
+    height: 2px;
+    background-color: #eed9b3;
+    margin: 0 auto;
+}
+
+/* 3'LÜ GRID DİZİLİMİ */
+.latest-works-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tam 3 eşit sütun */
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.work-card {
+    background: rgba(253, 251, 247, 0.95);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.work-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+.work-img-holder {
+    width: 100%;
+    height: 220px;
+    position: relative;
+    overflow: hidden;
+}
+
+.work-img-holder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.work-card:hover .work-img-holder img {
+    transform: scale(1.05);
+}
+
+.work-category {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #540f0f;
+    color: #fdfbf7;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.work-info {
+    padding: 25px;
+    color: #2b0606;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.work-info h3 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.3rem;
+    margin: 0 0 10px 0;
+    color: #540f0f;
+}
+
+.work-info p {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    flex-grow: 1;
+}
+
+.work-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.work-tags span {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #8b1a1a;
+}
+
+/* Alt Kartlar ile Üst Kartlar Arasındaki Boşluk */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 25px;
+    margin-top: 40px; /* Üstteki 3'lü kart grubundan mesafe bırakır */
+}
+
+
+
+
+
+/* --- ABOUT ME SAYFASI ÖZEL STİLLERİ --- */
+body.about-page {
+    height: 100vh;
+    overflow: hidden !important; /* Sayfanın aşağı kaymasını engeller, tek ekran tutar */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Aktif Menü Linki Işıltısı */
+.nav-side a.active {
+    color: #eed9b3 !important;
+    text-shadow: 0 0 10px rgba(238, 217, 179, 0.5);
+}
+
+.about-container {
+    max-width: 1250px;
+    width: 85%;
+    margin: 60px auto 0 auto;
+    z-index: 10;
+}
+
+.about-header {
+    margin-bottom: 30px;
+}
+
+.about-header h2 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2.5rem;
+    color: #fdfbf7;
+    margin: 0;
+    letter-spacing: 4px;
+}
+
+.about-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    color: #eed9b3;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+/* 3 SÜTUNLU DÜZEN */
+.about-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+/* Sol Biyografi Metni */
+.about-text-left p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #fdfbf7;
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+/* ORTA PORTRE - TRANSPARAN ÇERÇEVESİZ GÖRSEL */
+.about-image-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.transparent-portrait {
+    max-width: 100%;
+    max-height: 480px; /* Görselin yüksekliğini ekran ölçüsüne göre dengeler */
+    object-fit: contain;
+    /* Hafif arkadan süzülen gizemli bir gölge verir */
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.6));
+    transition: transform 0.4s ease;
+}
+
+.transparent-portrait:hover {
+    transform: scale(1.03); /* Fare üzerine geldiğinde çok hafif tatlı bir büyüme */
+}
+
+/* Sağ Yazılım/Yetenek Listesi */
+.about-skills-right h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    color: #fdfbf7;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.about-skills-right ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 25px 0;
+}
+
+.about-skills-right ul li {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    color: #eed9b3;
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 18px;
+}
+
+.about-skills-right ul li::before {
+    content: "•";
+    color: #fdfbf7;
+    position: absolute;
+    left: 0;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.quote-tag {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.75rem;
+    color: #d4a3a3;
+    display: block;
+    margin-top: 15px;
+}
+
+
+/* --- PORTFOLIO SAYFASI VE SEKMELER --- */
+.portfolio-container {
+    max-width: 1300px;
+    width: 85%;
+    margin: 100px auto 50px auto;
+    z-index: 10;
+}
+
+.portfolio-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.portfolio-header h2 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2.2rem;
+    color: #fdfbf7;
+    letter-spacing: 4px;
+    margin: 0 0 10px 0;
+}
+
+.header-line {
+    width: 60px;
+    height: 2px;
+    background-color: #eed9b3;
+    margin: 0 auto;
+}
+
+/* SEKMELER (TABS) MENÜSÜ */
+.portfolio-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.tab-btn {
+    background: transparent;
+    border: 1px solid rgba(238, 217, 179, 0.3);
+    color: #fdfbf7;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.tab-btn:hover, .tab-btn.active {
+    background: #eed9b3;
+    color: #2b0606;
+    border-color: #eed9b3;
+    box-shadow: 0 0 15px rgba(238, 217, 179, 0.4);
+}
+
+/* PORTFOLIO IZGARASI (GRID) */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.portfolio-card {
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    background: rgba(253, 251, 247, 0.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-6px);
+}
+
+.card-img-holder {
+    width: 100%;
+    height: 280px;
+    position: relative;
+}
+
+.card-img-holder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* KART ÜZERİNE GELİNCE AÇILAN SİYAH SÜZME DOKUSU (OVERLAY) */
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(43, 6, 6, 0.88); /* Koyu Bordeaux Süzme */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    box-sizing: border-box;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.portfolio-card:hover .card-overlay {
+    opacity: 1;
+}
+
+.overlay-cat {
+    font-size: 0.75rem;
+    color: #eed9b3;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.card-overlay h3 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.3rem;
+    color: #fdfbf7;
+    margin: 0 0 10px 0;
+}
+
+.card-overlay p {
+    font-size: 0.85rem;
+    color: #d4a3a3;
+    line-height: 1.4;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+
+/* 3D ROZETİ */
+.badge-3d {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(84, 15, 15, 0.9);
+    color: #fdfbf7;
+    font-size: 0.75rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+    z-index: 5;
+    border: 1px solid #eed9b3;
+    font-weight: 600;
+}
+
+/* 3D POP-UP MODAL BÖLÜMÜ */
+.modal-3d {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(15, 5, 5, 0.92);
+    z-index: 9999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(8px);
+}
+
+.close-modal {
+    position: absolute;
+    top: 30px; right: 40px;
+    font-size: 3rem;
+    color: #fdfbf7;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-modal:hover { color: #eed9b3; }
+
+.modal-title {
+    font-family: 'Cinzel Decorative', serif;
+    color: #eed9b3;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.modal-body-3d {
+    width: 80vw;
+    height: 70vh;
+}
+
+.modal-body-3d model-viewer {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* --- SANAT SERGİSİ DETAY SAYFASI (GALLERY) --- */
+.gallery-container {
+    max-width: 1200px;
+    width: 90%;
+    margin: 100px auto 50px auto;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gallery-showcase {
+    width: 100%;
+    height: 65vh; /* Ekranın %65'ini kaplar */
+    background: rgba(15, 5, 5, 0.4);
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(238, 217, 179, 0.1);
+    margin-bottom: 40px;
+}
+
+.gallery-showcase img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Görselin kırpılmasını engeller */
+}
+
+.gallery-showcase model-viewer {
+    width: 100%;
+    height: 100%;
+    outline: none;
+}
+
+.gallery-info {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.gallery-category {
+    color: #eed9b3;
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.gallery-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 3rem;
+    color: #fdfbf7;
+    margin: 10px 0;
+}
+
+.gallery-line {
+    width: 100px;
+    height: 2px;
+    background-color: #eed9b3;
+    margin: 20px auto;
+}
+
+.gallery-desc {
+    font-size: 1.1rem;
+    color: #d4a3a3;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.gallery-tags {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.tag-badge {
+    background: transparent;
+    border: 1px solid #eed9b3;
+    color: #eed9b3;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+/* --- 1. RESİM KESİLME (CROPPING) SORUNUNUN ÇÖZÜMÜ --- */
+/* Resimler artık kırpılmayacak, kutuya orijinal boyutuyla tam sığacak */
+.card-img-holder img, 
+.work-img-holder img,
+.gallery-showcase img {
+    object-fit: contain !important;
+    background-color: rgba(15, 5, 5, 0.6); /* Resmin arkasında kalacak şık boşluk rengi */
+}
+
+/* --- 2. YENİ KATEGORİ ROZETİ (SOL ÜST) --- */
+.badge-category {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(84, 15, 15, 0.95);
+    color: #fdfbf7;
+    font-size: 0.75rem;
+    padding: 6px 14px;
+    border-radius: 20px;
+    z-index: 5;
+    border: 1px solid #eed9b3;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- 3. ANA SAYFA İLETİŞİM (FOOTER) ALANI --- */
+.footer-section {
+    text-align: center;
+    padding: 60px 20px 40px 20px;
+    background: #1a0808; /* Sayfanın altıyla bütünleşen koyu renk */
+    color: #fdfbf7;
+    margin-top: 50px;
+    border-top: 1px solid rgba(238, 217, 179, 0.15);
+}
+
+.footer-section h2 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2rem;
+    color: #eed9b3;
+    margin-bottom: 10px;
+}
+
+.footer-line {
+    width: 60px;
+    height: 2px;
+    background: #eed9b3;
+    margin: 0 auto 30px auto;
+}
+
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.footer-socials a {
+    color: #fdfbf7;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-socials a:hover {
+    color: #eed9b3;
+    transform: translateY(-3px);
+}
+
+.footer-section p {
+    font-size: 0.85rem;
+    color: #a37c7c;
+    font-family: 'Montserrat', sans-serif;
+}

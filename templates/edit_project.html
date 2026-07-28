@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>AİDEN | İçeriği Düzenle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .admin-container { max-width: 700px; margin: 80px auto; color: #fdfbf7; padding: 20px; }
+        .admin-card { background: rgba(253, 251, 247, 0.95); color: #2b0606; padding: 30px; border-radius: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; }
+        .submit-btn { background: #540f0f; color: #fff; padding: 12px 25px; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; }
+        .back-link { color: #eed9b3; text-decoration: none; display: inline-block; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <a href="/admin" class="back-link"><i class="fa-solid fa-arrow-left"></i> Admin Paneline Dön</a>
+        <div class="admin-card">
+            <h3 style="font-family: 'Cinzel Decorative', serif; color: #540f0f; margin-top:0;">İçeriği Düzenle</h3>
+            <form method="POST" enctype="multipart/form-data">
+                <div class="form-group"><label>Başlık</label><input type="text" name="title" value="{{ project.title }}" required></div>
+                <div class="form-group"><label>Kategori</label>
+                    <select name="category" required>
+                        <option value="3DModels" {% if project.category == '3DModels' %}selected{% endif %}>3D Models</option>
+                        <option value="CharacterDesign" {% if project.category == 'CharacterDesign' %}selected{% endif %}>Character Design</option>
+                        <option value="PropDesign" {% if project.category == 'PropDesign' %}selected{% endif %}>Prop Design</option>
+                        <option value="PersonalWorks" {% if project.category == 'PersonalWorks' %}selected{% endif %}>Personal Works</option>
+                        <option value="Animation" {% if project.category == 'Animation' %}selected{% endif %}>Animation</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Açıklama</label><textarea name="description" rows="4" required>{{ project.description }}</textarea></div>
+                <div class="form-group"><label>Etiketler</label><input type="text" name="tags" value="{{ project.tags }}"></div>
+                <div class="form-group">
+                    <label>Mevcut Kapak Görseli:</label>
+                    <img src="{{ url_for('static', filename='uploads/' + project.image) }}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;">
+                    <input type="file" name="image" accept="image/*">
+                </div>
+                <div class="form-group"><label>3D Dosyası (.glb)</label><input type="file" name="model_file" accept=".glb"></div>
+                <div class="form-group"><label>YouTube Linki</label><input type="text" name="youtube_url" value="{{ project.youtube_url or '' }}"></div>
+                <button type="submit" class="submit-btn">Değişiklikleri Kaydet</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

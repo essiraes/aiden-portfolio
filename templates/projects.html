@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AİDEN | Projects</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="portfolio-page">
+
+    <div class="frame-border frame-top"></div>
+    <div class="frame-border frame-bottom"></div>
+    <div class="frame-border frame-left"></div>
+    <div class="frame-border frame-right"></div>
+
+    <nav class="artist-navbar">
+        <div class="nav-side left-links">
+            <a href="/">Home</a>
+            <a href="/about">About Me</a>
+        </div>
+        <div class="nav-center-logo">
+            <h1>AİDEN</h1>
+        </div>
+        <div class="nav-side right-links">
+            <a href="/projects" class="active">Projects</a>
+            <a href="/portfolio">Portfolio</a>
+        </div>
+    </nav>
+
+    <div class="side-bar side-left">
+        <div class="social-links">
+            <a href="mailto:ornekmail@gmail.com" title="Send Email"><i class="fa-solid fa-envelope"></i></a>
+            <a href="#" target="_blank"><i class="fa-brands fa-artstation"></i></a>
+            <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+        <span class="side-text">SOCIALS</span>
+    </div>
+
+    <div class="side-bar side-right">
+        <span class="side-text">FEATURED PROJECTS</span>
+        <div class="side-line"></div>
+    </div>
+
+    <main class="portfolio-container">
+        
+        <header class="portfolio-header">
+            <h2>MAJOR PROJECTS</h2>
+            <div class="header-line"></div>
+            <p style="color: #a37c7c; margin-top: 10px; font-size: 0.9rem;">Ormanlık alanlar, kompleks sahneler ve çoklu asset içeren büyük konsept çalışmalarım.</p>
+        </header>
+
+        <!-- BÜYÜK PROJE KARTLARI (Major Projects) -->
+        <div class="portfolio-grid">
+            {% if major_projects %}
+                {% for mp in major_projects %}
+                <div class="portfolio-card" style="cursor: pointer;" onclick="window.location.href='/major-project/{{ mp.id }}'">
+                    <div class="card-img-holder">
+                        <img src="{{ url_for('static', filename='uploads/' + mp.image) }}" alt="{{ mp.title }}">
+                        <span class="badge-category"><i class="fa-solid fa-layer-group"></i> Project</span>
+                        <div class="card-overlay">
+                            <span class="overlay-cat">Konsept Proje</span>
+                            <h3>{{ mp.title }}</h3>
+                            <p>Projeyi İncele <i class="fa-solid fa-arrow-right"></i></p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-portfolio-msg">
+                    <i class="fa-solid fa-mountain-sun"></i>
+                    <p>Henüz büyük bir proje eklenmedi.</p>
+                </div>
+            {% endif %}
+        </div>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AİDEN | About Me</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="about-page">
+
+    <!-- SANATSAL ÇERÇEVE ÇİZGİLERİ -->
+    <div class="frame-border frame-top"></div>
+    <div class="frame-border frame-bottom"></div>
+    <div class="frame-border frame-left"></div>
+    <div class="frame-border frame-right"></div>
+
+    <!-- ÜST MENÜ -->
+    <!-- ÜST MENÜ -->
+    <nav class="artist-navbar">
+        <div class="nav-side left-links">
+            <a href="/">Home</a>
+            <a href="/about" class="active">About Me</a>
+        </div>
+        <div class="nav-center-logo">
+            <h1>AİDEN</h1>
+        </div>
+        <div class="nav-side right-links">
+            <a href="/projects">Projects</a>
+    <a href="/portfolio">Portfolio</a>
+</div>
+    </nav>
+
+    <!-- SAĞ VE SOL DİKEY BÖLÜMLER -->
+    <div class="side-bar side-left">
+        <div class="social-links">
+            <a href="#" target="_blank"><i class="fa-brands fa-artstation"></i></a>
+            <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="mailto:ornekmail@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+        <span class="side-text">SOCIALS & CONTACT</span>
+    </div>
+
+    <div class="side-bar side-right">
+        <span class="side-text">ABOUT THE ARTIST</span>
+        <div class="side-line"></div>
+    </div>
+
+    <!-- MAIN ABOUT CONTENT (TEK EKRAN DÜZENİ) -->
+    <main class="about-container">
+        
+        <!-- ÜST BAŞLIK -->
+        <header class="about-header">
+            <h2>ABOUT</h2>
+            <p class="about-subtitle">Who is behind these characters & animations?</p>
+        </header>
+
+        <!-- 3'LÜ DÜZEN (SOL METİN - ORTA FOTO - SAĞ YAZILIMLAR) -->
+        <div class="about-content-grid">
+            
+            <!-- SOL TARAFI: BİYOGRAFİ METNİ -->
+            <div class="about-text-left">
+                <p>
+                    Karakter tasarımı, 3D modelleme ve animasyon dünyasında özgün görsel tarzlar üretmeye odaklanıyorum. Karakterlerin sadece görünüşlerini değil, ruhlarını ve anlatmak istedikleri hikayeyi ön planda tutuyorum.
+                </p>
+                <p>
+                    Stylized ve gotik estetiği harmanlayarak Blender, Substance Painter ve ZBrush üzerinde dinamik karakterler, iskelet sistemleri (rigging) ve animasyonlar geliştiriyorum.
+                </p>
+            </div>
+
+            <!-- ORTA KISIM: YUMURTA/DAMLA FORMUNDA PORTRE VE DSK ÇİZİM -->
+            <!-- ORTA KISIM: TRANSPARAN (PNG) ÇERÇEVESİZ GÖRSEL -->
+            <div class="about-image-center">
+                <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Aiden" class="transparent-portrait">
+            </div>
+
+            <!-- SAĞ TARAFI: YAZILIM / BECERİ LİSTESİ -->
+            <div class="about-skills-right">
+                <h3>Proficient in the following software:</h3>
+                <ul>
+                    <li>Blender 3D</li>
+                    <li>Substance 3D Painter</li>
+                    <li>ZBrush</li>
+                    <li>Adobe Photoshop</li>
+                    <li>Adobe After Effects</li>
+                    <li>Unreal Engine 5</li>
+                </ul>
+                <span class="quote-tag">— “Art is bringing dreams to life.”</span>
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

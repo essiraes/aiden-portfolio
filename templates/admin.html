@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>AİDEN | Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .admin-container { max-width: 1100px; margin: 80px auto; color: #fdfbf7; padding: 20px; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .admin-header h2 { font-family: 'Cinzel Decorative', serif; }
+        .logout-btn { color: #eed9b3; text-decoration: none; border: 1px solid #eed9b3; padding: 8px 16px; border-radius: 15px; }
+        
+        .admin-card { background: rgba(253, 251, 247, 0.95); color: #2b0606; padding: 30px; border-radius: 20px; margin-bottom: 40px; }
+        .admin-card h3 { font-family: 'Cinzel Decorative', serif; color: #540f0f; margin-top: 0; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; }
+        .submit-btn { background: #540f0f; color: #fff; padding: 12px 25px; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; margin-top: 15px; }
+        
+        .project-list-table { width: 100%; border-collapse: collapse; background: rgba(253, 251, 247, 0.95); color: #2b0606; border-radius: 15px; overflow: hidden; margin-bottom: 40px; }
+        .project-list-table th, .project-list-table td { padding: 15px; text-align: left; }
+        .project-list-table th { background: #540f0f; color: #fff; }
+        .project-list-table img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; }
+        .action-btns a { margin-right: 10px; font-size: 1.1rem; text-decoration: none; }
+        .edit-btn { color: #d4a373; }
+        .delete-btn { color: red; }
+        
+        .checkbox-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; max-height: 200px; overflow-y: auto; background: #fff; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h2>PROJE YÖNETİM PANELİ</h2>
+            <a href="/logout" class="logout-btn">Çıkış Yap</a>
+        </div>
+
+        <!-- 1. FORM: PORTFOLYO ÖĞESİ YÜKLE -->
+        <div class="admin-card">
+            <h3>1. Tekil Portfolyo Öğesi Ekle</h3>
+            <form method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="form_type" value="portfolio_item">
+                <div class="form-group"><label>Başlık</label><input type="text" name="title" required></div>
+                <div class="form-group"><label>Kategori</label>
+                    <select name="category" required>
+                        <option value="3DModels">3D Models</option>
+                        <option value="CharacterDesign">Character Design</option>
+                        <option value="PropDesign">Prop Design</option>
+                        <option value="PersonalWorks">Personal Works</option>
+                        <option value="Animation">Animation</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Açıklama</label><textarea name="description" rows="3" required></textarea></div>
+                <div class="form-group"><label>Etiketler</label><input type="text" name="tags" placeholder="Blender, PBR"></div>
+                <div class="form-group"><label>Kapak Görseli</label><input type="file" name="image" accept="image/*" required></div>
+                <div class="form-group"><label>3D Dosyası (.glb - İsteğe Bağlı)</label><input type="file" name="model_file" accept=".glb"></div>
+                <div class="form-group"><label>YouTube Linki (İsteğe Bağlı)</label><input type="text" name="youtube_url" placeholder="https://www.youtube.com/embed/..."></div>
+                <button type="submit" class="submit-btn">Portfolyoya Ekle</button>
+            </form>
+        </div>
+
+        <!-- 2. FORM: BÜYÜK PROJE (PROJECTS) OLUŞTUR -->
+        <div class="admin-card" style="background: rgba(238, 217, 179, 0.95);">
+            <h3>2. Büyük Proje Oluştur (Projects Sekmesi İçin)</h3>
+            <form method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="form_type" value="major_project">
+                <div class="form-group"><label>Proje Adı (Örn: Ormanlık Alan Konsepti)</label><input type="text" name="title" required></div>
+                <div class="form-group"><label>Proje Açıklaması</label><textarea name="description" rows="3" required></textarea></div>
+                <div class="form-group"><label>Proje Kapak Görseli</label><input type="file" name="image" accept="image/*" required></div>
+                
+                <div class="form-group">
+                    <label>Bu Projeye Dahil Edilecek Öğeleri Seçin:</label>
+                    <div class="checkbox-grid">
+                        {% for item in projects %}
+                        <label style="font-weight: normal; font-size: 0.9rem; display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" name="selected_items" value="{{ item.id }}"> {{ item.title }} ({{ item.category }})
+                        </label>
+                        {% else %}
+                        <p style="color: #666; grid-column: span 2;">Önce yukarıdan portfolyo öğeleri eklemelisiniz.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn" style="background: #1a0808;">Büyük Projeyi Yayınla</button>
+            </form>
+        </div>
+
+        <!-- YAYINLANMIŞ BÜYÜK PROJELER LİSTESİ -->
+        <h3 style="font-family: 'Cinzel Decorative', serif;">Yayınlanan Büyük Projeler (Projects)</h3>
+        <table class="project-list-table">
+            <thead>
+                <tr><th>Görsel</th><th>Başlık</th><th>Eklenme Tarihi</th><th>İşlem</th></tr>
+            </thead>
+            <tbody>
+                {% for mp in major_projects %}
+                <tr>
+                    <td><img src="{{ url_for('static', filename='uploads/' + mp.image) }}"></td>
+                    <td>{{ mp.title }}</td>
+                    <td>{{ mp.created_at.strftime('%d.%m.%Y %H:%M') }}</td>
+                    <td class="action-btns">
+                        <a href="/admin/delete-major/{{ mp.id }}" class="delete-btn" onclick="return confirm('Silmek istediğinize emin misiniz?')" title="Sil"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="4" style="text-align: center;">Henüz büyük proje yok.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- PORTFOLYO ÖĞELERİ LİSTESİ -->
+        <h3 style="font-family: 'Cinzel Decorative', serif;">Tüm Portfolyo Öğeleri</h3>
+        <table class="project-list-table">
+            <thead>
+                <tr><th>Görsel</th><th>Başlık</th><th>Kategori</th><th>Eklenme Tarihi</th><th>İşlem</th></tr>
+            </thead>
+            <tbody>
+                {% for item in projects %}
+                <tr>
+                    <td><img src="{{ url_for('static', filename='uploads/' + item.image) }}"></td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.category }}</td>
+                    <td>{{ item.created_at.strftime('%d.%m.%Y %H:%M') }}</td>
+                    <td class="action-btns">
+                        <a href="/admin/edit/{{ item.id }}" class="edit-btn" title="Düzenle"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="/admin/delete/{{ item.id }}" class="delete-btn" onclick="return confirm('Silmek istediğinize emin misiniz?')" title="Sil"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="5" style="text-align: center;">Henüz portfolyo öğesi yok.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

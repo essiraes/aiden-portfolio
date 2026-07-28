@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>AİDEN | Admin Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .login-box {
+            max-width: 400px;
+            margin: 150px auto;
+            background: rgba(253, 251, 247, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            color: #2b0606;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+        .login-box h2 { font-family: 'Cinzel Decorative', serif; color: #540f0f; margin-bottom: 25px; }
+        .login-box input {
+            width: 100%; padding: 12px; margin-bottom: 20px;
+            border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box;
+        }
+        .login-box button {
+            width: 100%; padding: 12px; background: #540f0f; color: #fff;
+            border: none; border-radius: 10px; font-weight: 600; cursor: pointer;
+        }
+        .login-box button:hover { background: #8b1a1a; }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>ADMIN LOGIN</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p style="color: red; font-size: 0.85rem;">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method="POST">
+            <input type="password" name="password" placeholder="Şifrenizi Girin" required>
+            <button type="submit">Giriş Yap</button>
+        </form>
+    </div>
+</body>
+</html>
