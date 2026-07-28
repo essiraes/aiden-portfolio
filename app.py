@@ -245,7 +245,8 @@ def delete_major(major_id):
     flash('Büyük proje silindi!', 'info')
     return redirect(url_for('admin'))
 
+with app.app_context():
+    db.create_all()
+
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
